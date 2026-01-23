@@ -1,0 +1,20 @@
+Static files path: E:\ISTE - KEC (website)\client\dist
+E:\ISTE - KEC (website)\server\node_modules\path-to-regexp\dist\index.js:96
+            throw new PathError(`Missing parameter name at index ${index}`, str);
+            ^
+
+PathError [TypeError]: Missing parameter name at index 1: *; visit https://git.new/pathToRegexpError for info
+    at name (E:\ISTE - KEC (website)\server\node_modules\path-to-regexp\dist\index.js:96:19)
+    at parse (E:\ISTE - KEC (website)\server\node_modules\path-to-regexp\dist\index.js:113:68)
+    at pathToRegexp (E:\ISTE - KEC (website)\server\node_modules\path-to-regexp\dist\index.js:267:58)
+    at Object.match (E:\ISTE - KEC (website)\server\node_modules\path-to-regexp\dist\index.js:237:30)
+    at matcher (E:\ISTE - KEC (website)\server\node_modules\router\lib\layer.js:86:23)
+    at new Layer (E:\ISTE - KEC (website)\server\node_modules\router\lib\layer.js:93:62)
+    at Function.route (E:\ISTE - KEC (website)\server\node_modules\router\index.js:428:17)
+    at Function.route (E:\ISTE - KEC (website)\server\node_modules\express\lib\application.js:257:22)
+    at app.<computed> [as get] (E:\ISTE - KEC (website)\server\node_modules\express\lib\application.js:478:22)
+    at Object.<anonymous> (E:\ISTE - KEC (website)\server\index.js:19:5) {
+  originalPath: '*'
+}
+
+Node.js v22.17.0

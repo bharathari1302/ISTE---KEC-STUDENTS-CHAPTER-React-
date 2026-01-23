@@ -1,0 +1,44 @@
+import React from 'react';
+
+const About = () => {
+    return (
+        <section id="about" className="about-section py-5">
+            <div className="container py-5">
+                <div className="section-header text-center mb-5 reveal">
+                    <h2 className="display-5 fw-bold text-white">About Us</h2>
+                    <p className="text-secondary">Who we are and what we stand for.</p>
+                </div>
+
+                <div className="row align-items-center gy-5 reveal">
+                    <div className="col-lg-6">
+                        <div className="about-img position-relative">
+                            <img
+                                src="https://srmmcet.edu.in/wp-content/uploads/2023/12/Indian-Society-for-Technical-Education.webp"
+                                alt="ISTE Logo Large"
+                                className="img-fluid rounded-4 shadow-lg border border-secondary"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6">
+                        <div className="about-content ps-lg-4">
+                            <h3 className="h2 text-primary mb-4">Empowering Future Engineers</h3>
+                            <p className="text-secondary mb-4 lead">
+                                The Indian Society for Technical Education (ISTE) is the leading National Professional non-profit
+                                making Society for the Technical Education System in our country. We operate with the motto of
+                                Career Development of Teachers and Personality Development of Students.
+                            </p>
+                            <p className="text-secondary mb-5">
+                                At ISTE-KEC, we are a dynamic community committed to fostering technical excellence, professional
+                                growth, and innovative thinking among students. Being a part of ISTE-KEC opens doors to a vast
+                                network of professionals and opportunities.
+                            </p>
+                            <a href="#team" className="btn btn-outline-primary rounded-pill px-4">Meet Our Team</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default About;

@@ -1,0 +1,317 @@
+/* Timeline Styling - Horizontal Marvel Style */
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 180px 0;
+    /* Increased space for pop-ups */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+}
+
+/* The Central Line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+/* Progress Line (Dynamic) */
+.timeline-progress {
+    position: absolute;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+    box-shadow: 0 0 20px var(--primary);
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-item {
+    position: relative;
+    flex: 1;
+    /* Distribute space evenly */
+    text-align: center;
+    z-index: 1;
+    padding: 0;
+    /* Reset vertical padding */
+}
+
+/* The Node/Dot */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-body);
+    border: 2px solid var(--secondary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 2;
+    transition: 0.3s ease;
+    box-shadow: 0 0 0 4px var(--bg-body);
+}
+
+/* Hover State for Node */
+.timeline-item:hover::after {
+    background: var(--primary);
+    border-color: #fff;
+    transform: translate(-50%, -50%) scale(1.6);
+    box-shadow: 0 0 25px var(--primary), 0 0 15px var(--secondary);
+}
+
+/* Content Card Container */
+.content {
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background: transparent;
+    border: none;
+    transition: all 0.3s ease;
+    z-index: 3;
+    /* text-align: center; */
+}
+
+/* BRIDGE THE GAP: Ensure hover state persists when moving from dot to content */
+.timeline-item:nth-child(odd)::before {
+    content: '';
+    position: absolute;
+    bottom: 50%;
+    /* Start from line */
+    left: 0;
+    width: 100%;
+    height: 50px;
+    /* Reach up to the content */
+    background: transparent;
+    z-index: 2;
+}
+
+.timeline-item:nth-child(even)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    /* Start from line */
+    left: 0;
+    width: 100%;
+    height: 50px;
+    /* Reach down to the content */
+    background: transparent;
+    z-index: 2;
+}
+
+/* Alternating Placement */
+.timeline-item:nth-child(odd) .content {
+    bottom: 30px;
+    /* Above line */
+    padding-bottom: 20px;
+}
+
+.timeline-item:nth-child(even) .content {
+    top: 30px;
+    /* Below line */
+    padding-top: 20px;
+}
+
+/* Connectors (Magical Vertical Line) */
+.timeline-item .content::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 0;
+    /* Start hidden */
+    background: linear-gradient(to top, var(--secondary), var(--primary));
+    transform: translateX(-50%);
+    transition: height 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 0 10px var(--primary);
+    z-index: -1;
+}
+
+/* Odd items (Above line) - Line grows upwards from bottom */
+.timeline-item:nth-child(odd) .content::before {
+    bottom: -30px;
+    /* Start from line level roughly */
+    background: linear-gradient(to top, var(--secondary), var(--primary));
+}
+
+/* Even items (Below line) - Line grows downwards from top */
+.timeline-item:nth-child(even) .content::before {
+    top: -30px;
+    /* Start from line level roughly */
+    background: linear-gradient(to bottom, var(--secondary), var(--primary));
+}
+
+/* HOVER - Expand Line */
+.timeline-item:hover .content::before {
+    height: 50px;
+    /* Connect to dot */
+    box-shadow: 0 0 20px var(--primary), 0 0 10px white;
+}
+
+/* Text Styles */
+.content h2 {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content .date {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Description (Hidden by default) */
+.content p {
+    display: none;
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* HOVER INTERACTION - Pop Up Card */
+.timeline-item:hover .content {
+    background: #111;
+    /* Solid dark background */
+    border: 1px solid var(--primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+    border-radius: 12px;
+    width: 300px;
+    padding: 25px;
+    z-index: 100 !important;
+    cursor: default;
+}
+
+/* Expanded Text Styles */
+.timeline-item:hover .content h2 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    white-space: normal;
+}
+
+.timeline-item:hover .content p {
+    display: block;
+    /* Reveal */
+    animation: fadeIn 0.3s ease;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive - Fallback to Vertical */
+@media screen and (max-width: 900px) {
+    .timeline {
+        flex-direction: column;
+        padding: 40px 0;
+        display: block;
+        margin: 0;
+        height: auto;
+    }
+
+    .timeline::after {
+        width: 4px;
+        height: 100%;
+        top: 0;
+        left: 30px;
+        transform: none;
+    }
+
+    .timeline-item {
+        width: 100%;
+        text-align: left;
+        padding-left: 70px;
+        padding-right: 20px;
+        margin-bottom: 30px;
+        display: block;
+    }
+
+    .timeline-item::after {
+        left: 30px;
+        top: 25px;
+        transform: translate(-50%, 0);
+    }
+
+    .timeline-item:hover::after {
+        transform: translate(-50%, 0) scale(1.3);
+    }
+
+    .content,
+    .timeline-item:nth-child(odd) .content,
+    .timeline-item:nth-child(even) .content {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        transform: none;
+        width: 100%;
+        background: rgba(16, 20, 24, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .content::before,
+    .timeline-item:nth-child(odd) .content::before,
+    .timeline-item:nth-child(even) .content::before {
+        display: none;
+    }
+
+    .content h2 {
+        font-size: 1.1rem;
+        white-space: normal;
+    }
+
+    .content p {
+        display: block;
+        margin-top: 10px;
+        color: var(--text-muted);
+    }
+
+    /* Disable hover expansion layout changes on mobile */
+    .timeline-item:hover .content {
+        width: 100%;
+        transform: none;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(16, 20, 24, 0.8);
+    }
+
+    .timeline-progress {
+        display: none;
+    }
+}
