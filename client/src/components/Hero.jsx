@@ -2,10 +2,35 @@ import React from 'react';
 import heroVideo from '../assets/videos/hero.mp4';
 
 const Hero = () => {
+    const [videoLoaded, setVideoLoaded] = React.useState(false);
+
     return (
         <section id="home" className="hero d-flex align-items-center justify-content-center text-center">
+            {/* Skeleton / Loading State */}
+            {!videoLoaded && (
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: '#1a1a1a',
+                    zIndex: 0 // Behind content but in front of background if any
+                }}>
+                    {/* Optional: Add a spinner or just keep it dark/skeleton color */}
+                </div>
+            )}
+
             {/* Video Background */}
-            <video className="hero-video" autoPlay muted loop playsInline>
+            <video
+                className={`hero-video ${videoLoaded ? 'fade-in' : 'opacity-0'}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                onLoadedData={() => setVideoLoaded(true)}
+                style={{ transition: 'opacity 1s ease-in-out', opacity: videoLoaded ? 1 : 0 }}
+            >
                 <source src={heroVideo} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>

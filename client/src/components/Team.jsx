@@ -1,3 +1,7 @@
+import React, { useState, useEffect } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
@@ -48,6 +52,17 @@ const teamData = [
 ];
 
 const Team = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate data fetching
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000); // 2 seconds delay
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <section id="team" className="team-section py-5">
             <div className="container py-5">
@@ -57,47 +72,61 @@ const Team = () => {
                 </div>
 
 
-                {/* Swiper Implementation */}
-                <Swiper
-                    effect={'coverflow'}
-                    grabCursor={true}
-                    centeredSlides={true}
-                    slidesPerView={'auto'}
-                    loop={true}
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    coverflowEffect={{
-                        rotate: 0,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 2.5,
-                        slideShadows: true,
-                    }}
-                    pagination={{ clickable: true }}
-                    modules={[EffectCoverflow, Pagination, Autoplay]}
-                    className="teamSwiper reveal"
-                >
-                    {teamData.map((member, index) => (
-                        <SwiperSlide className="team-slide" key={index}>
-                            <div className="team-image-container">
-                                <img
-                                    src={getTeamImage(member.image) || 'https://via.placeholder.com/300x420?text=No+Image'}
-                                    alt={member.name}
-                                    style={{ objectPosition: member.objectPosition || 'center' }}
-                                />
+                {isLoading ? (
+                    <div className="d-flex justify-content-center gap-4 flex-wrap">
+                        {Array(3).fill(0).map((_, index) => (
+                            <div key={index} className="team-slide" style={{ width: '300px', height: '420px', background: 'rgba(255,255,255,0.05)', borderRadius: '15px', padding: '15px' }}>
+                                <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                                    <Skeleton height={300} style={{ borderRadius: '10px', marginBottom: '15px' }} />
+                                    <Skeleton height={30} width="80%" style={{ marginBottom: '10px' }} />
+                                    <Skeleton height={20} width="60%" />
+                                </SkeletonTheme>
                             </div>
-                            <div className="team-overlay">
-                                <h3>{member.name}</h3>
-                                <span>{member.role}</span>
-                                <div className="team-socials-reveal">
-                                    <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="team-icon"><i className='bx bxl-linkedin'></i></a>
+                        ))}
+                    </div>
+                ) : (
+                    /* Swiper Implementation */
+                    <Swiper
+                        effect={'coverflow'}
+                        grabCursor={true}
+                        centeredSlides={true}
+                        slidesPerView={'auto'}
+                        loop={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        coverflowEffect={{
+                            rotate: 0,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 2.5,
+                            slideShadows: true,
+                        }}
+                        pagination={{ clickable: true }}
+                        modules={[EffectCoverflow, Pagination, Autoplay]}
+                        className="teamSwiper reveal"
+                    >
+                        {teamData.map((member, index) => (
+                            <SwiperSlide className="team-slide" key={index}>
+                                <div className="team-image-container">
+                                    <img
+                                        src={getTeamImage(member.image) || 'https://via.placeholder.com/300x420?text=No+Image'}
+                                        alt={member.name}
+                                        style={{ objectPosition: member.objectPosition || 'center' }}
+                                    />
                                 </div>
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                                <div className="team-overlay">
+                                    <h3>{member.name}</h3>
+                                    <span>{member.role}</span>
+                                    <div className="team-socials-reveal">
+                                        <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="team-icon"><i className='bx bxl-linkedin'></i></a>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )}
             </div>
         </section>
     );
