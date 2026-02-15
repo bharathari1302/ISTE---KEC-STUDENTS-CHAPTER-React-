@@ -9,6 +9,7 @@ const eventsData = [
     { title: "Prep2place – Unlock Your Carrer Volume 1.3", date: "2nd Sep 2025", desc: "(For EEE, ECE and EIE)\nA Guidance Programme by the seniors and the one to one interaction between senior and junior." },
     { title: "EXODIA 2K25 - An 30 Hours Hackathon", date: "Sep 27-28, 2025", desc: "A thrilling 30-hour non-stop hackathon challenging participants to solve real-world problems. Collaborate, innovate, and code your way to victory while showcasing your technical prowess." },
     { title: "EXODIA 2K25 - Intra College Symposium", date: "3rd Jan 2026", desc: "An Intra College Symposium featuring a series of technical and non-technical events. A platform to exhibit talents, compete, and learn from the best minds in the college." },
+    { title: "Nexodus'2k26", date: "21st Feb 2026", desc: "An Event Symposium which is Exclusive only for First years. Featuring a series of technical and non-technical events. A platform to exhibit talents, compete, and learn from the best minds in the college." },
     { title: "AVENTURO 2K26 - An Inter-college National level Symposium", date: "Coming Soon", desc: "Get ready for the grandest event of the year! A national-level platform to showcase your technical prowess, network with peers from across the country, and participate in exciting workshops and competitions." },
 ];
 
